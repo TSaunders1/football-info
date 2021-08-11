@@ -48,4 +48,39 @@ const TableRow: React.FC<Props> = ({ club }) => {
   );
 };
 
+export const TableRowMobile: React.FC<Props> = ({ club }) => {
+  const {
+    team, playedGames, won, draw, lost, goalDifference, points, position,
+  } = club;
+
+  return (
+    <tr key={team.id} data-testid="team">
+      <td data-testid="position" className="pv3 pr3 bb b--black-20">
+        {position}
+      </td>
+      <td data-testid="team-name" className="pv3 pr3 bb b--black-20">
+        {team.name}
+      </td>
+      <td data-testid="games-played" className="pv3 pr3 bb b--black-20">
+        {playedGames}
+      </td>
+      <td data-testid="games-won" className="pv3 pr3 bb b--black-20">
+        {won}
+      </td>
+      <td data-testid="games-drawn" className="pv3 pr3 bb b--black-20">
+        {draw}
+      </td>
+      <td data-testid="games-lost" className="pv3 pr3 bb b--black-20">
+        {lost}
+      </td>
+      <td data-testid="goals-difference" className="pv3 pr3 bb b--black-20">
+        {goalDifference}
+      </td>
+      <td data-testid="points" className="pv3 pr3 bb b--black-20">
+        {points}
+      </td>
+    </tr>
+  );
+};
+
 export default TableRow;

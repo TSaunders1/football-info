@@ -13,7 +13,7 @@ const GamesTodayList: React.FC<Props> = ({ matches }) => {
 
   return (
     <div data-testid="GamesTodayList" className="tc">
-      <h1 data-testid="count">
+      <h1 data-testid="count" className="pa1">
         There are
         {' '}
         {count}
