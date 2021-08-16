@@ -33,7 +33,7 @@ type Props = {
 };
 
 const TeamPage: React.FC<Props> = ({ team }) => {
-  if (!team) return <p className="f5 center">Sorry there has been an error loading your team.</p>;
+  if (!team) return <p className="f5 center">Sorry, there has been an error loading your team.</p>;
 
   return (
     <Layout>
