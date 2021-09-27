@@ -6,6 +6,7 @@ import BackButton from '../../components/BackButton/BackButton';
 import bigLeagues from '../../constants/BigLeague.constants';
 import { TableType } from '../../types';
 import Layout from '../../components/Layout/Layout';
+import mockPremierLeagueTable from '../../mockData/mockPremierLeagueTable';
 
 const dict = new Map<string, number>();
 dict.set('premierleague', 2021);
@@ -30,19 +31,31 @@ export const getStaticProps: GetStaticProps = async ({ params }) => {
       'X-Auth-Token': `${process.env.REACT_APP_API_KEY}`,
     },
   });
-  const table = await res.json();
+  const league = await res.json();
 
-  return { props: { table: table.standings[0].table }, revalidate: 3600 };
+  let table;
+
+  if (league?.standings?.length) {
+    table = league?.standings[0]?.table;
+  } else {
+    table = mockPremierLeagueTable;
+  }
+
+  return { props: { table }, revalidate: 3600 };
 };
 
 type Props = {
   table: TableType[];
 };
 
-const LeagueTablePage: React.FC<Props> = ({ table }) => (
-  <Layout>
-    <Table table={table} />
-    <BackButton />
-  </Layout>
-);
+const LeagueTablePage: React.FC<Props> = ({ table }) => {
+  if (!table.length) return <p className="f5 center">Sorry, there has been an error loading the table.</p>;
+
+  return (
+    <Layout>
+      <Table table={table} />
+      <BackButton />
+    </Layout>
+  );
+};
 export default LeagueTablePage;

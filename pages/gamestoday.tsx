@@ -22,7 +22,7 @@ export const getStaticProps: GetStaticProps = async () => {
 
   return {
     props: {
-      matches: matches.matches,
+      matches: matches?.matches,
     },
     revalidate: 10,
   };
@@ -32,10 +32,14 @@ type Props = {
   matches: MatchesType[];
 };
 
-const GamesToday: React.FC<Props> = ({ matches }) => (
-  <Layout>
-    <GamesTodayList matches={matches} />
-  </Layout>
-);
+const GamesToday: React.FC<Props> = ({ matches }) => {
+  if (!matches.length) return <p className="f5 center">Sorry, there has been an error loading the matches.</p>;
+
+  return (
+    <Layout>
+      <GamesTodayList matches={matches} />
+    </Layout>
+  );
+};
 
 export default GamesToday;
