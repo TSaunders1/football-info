@@ -3,7 +3,6 @@ import { GetStaticProps } from 'next';
 import GamesTodayList from '../components/GamesTodayList/GamesTodayList';
 import { MatchesType } from '../types';
 import Layout from '../components/Layout/Layout';
-import { mockGamesToday } from '../mockData/mockGamesToday';
 
 export const getStaticProps: GetStaticProps = async () => {
   const res = await fetch('https://api.football-data.org/v2/matches', {
@@ -20,17 +19,9 @@ export const getStaticProps: GetStaticProps = async () => {
     };
   }
 
-  let gamesToday;
-
-  if (matches.matches.length) {
-    gamesToday = matches.matches;
-  } else {
-    gamesToday = mockGamesToday;
-  }
-
   return {
     props: {
-      matches: gamesToday,
+      matches: matches.matches,
     },
     revalidate: 10,
   };

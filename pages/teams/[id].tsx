@@ -6,7 +6,6 @@ import { bigTeams, bigTeamsIdLookUpMap } from '../../constants/BigTeams.constant
 import Layout from '../../components/Layout/Layout';
 import TeamProfile from '../../components/TeamProfile/TeamProfile';
 import TeamSquad from '../../components/TeamSquad/TeamSquad';
-import mockManCityTeam from '../../mockData/mockManCityTeam';
 
 export const getStaticPaths: GetStaticPaths = async () => {
   const paths = bigTeams.map((team) => ({
@@ -26,15 +25,7 @@ export const getStaticProps: GetStaticProps = async ({ params }) => {
   });
   const team = await res.json();
 
-  let squad;
-
-  if (team) {
-    squad = team;
-  } else {
-    squad = mockManCityTeam;
-  }
-
-  return { props: { team: squad }, revalidate: 60 };
+  return { props: { team }, revalidate: 86400 };
 };
 
 type Props = {

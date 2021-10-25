@@ -1,12 +1,10 @@
 import React from 'react';
 import { GetStaticProps, GetStaticPaths } from 'next';
-// import { MOCKpremierLeagueTable } from '../../MOCKDATA/MOCKpremierLeagueTable';
 import Table from '../../components/Table/Table';
 import BackButton from '../../components/BackButton/BackButton';
 import bigLeagues from '../../constants/BigLeague.constants';
 import { TableType } from '../../types';
 import Layout from '../../components/Layout/Layout';
-import mockPremierLeagueTable from '../../mockData/mockPremierLeagueTable';
 
 const dict = new Map<string, number>();
 dict.set('premierleague', 2021);
@@ -33,15 +31,7 @@ export const getStaticProps: GetStaticProps = async ({ params }) => {
   });
   const league = await res.json();
 
-  let table;
-
-  if (league?.standings?.length) {
-    table = league?.standings[0]?.table;
-  } else {
-    table = mockPremierLeagueTable;
-  }
-
-  return { props: { table }, revalidate: 60 };
+  return { props: { table: league?.standings[0]?.table }, revalidate: 3600 };
 };
 
 type Props = {
