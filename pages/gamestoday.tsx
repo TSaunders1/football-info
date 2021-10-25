@@ -3,7 +3,7 @@ import { GetStaticProps } from 'next';
 import GamesTodayList from '../components/GamesTodayList/GamesTodayList';
 import { MatchesType } from '../types';
 import Layout from '../components/Layout/Layout';
-// import { MOCKgamesToday } from '../MOCKDATA/MOCKgamesToday';
+import { mockGamesToday } from '../mockData/mockGamesToday';
 
 export const getStaticProps: GetStaticProps = async () => {
   const res = await fetch('https://api.football-data.org/v2/matches', {
@@ -20,9 +20,17 @@ export const getStaticProps: GetStaticProps = async () => {
     };
   }
 
+  let gamesToday;
+
+  if (matches.matches.length) {
+    gamesToday = matches.matches;
+  } else {
+    gamesToday = mockGamesToday;
+  }
+
   return {
     props: {
-      matches: matches?.matches,
+      matches: gamesToday,
     },
     revalidate: 10,
   };
@@ -33,7 +41,7 @@ type Props = {
 };
 
 const GamesToday: React.FC<Props> = ({ matches }) => {
-  if (!matches.length) return <p className="f5 center">Sorry, there has been an error loading the matches.</p>;
+  if (!matches) return <p className="f5 center">Sorry, there has been an error loading the matches.</p>;
 
   return (
     <Layout>

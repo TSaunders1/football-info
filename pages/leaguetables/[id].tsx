@@ -41,7 +41,7 @@ export const getStaticProps: GetStaticProps = async ({ params }) => {
     table = mockPremierLeagueTable;
   }
 
-  return { props: { table }, revalidate: 3600 };
+  return { props: { table }, revalidate: 60 };
 };
 
 type Props = {
@@ -49,7 +49,7 @@ type Props = {
 };
 
 const LeagueTablePage: React.FC<Props> = ({ table }) => {
-  if (!table.length) return <p className="f5 center">Sorry, there has been an error loading the table.</p>;
+  if (table.length === 0) return <p className="f5 center">Sorry, there has been an error loading the table.</p>;
 
   return (
     <Layout>
