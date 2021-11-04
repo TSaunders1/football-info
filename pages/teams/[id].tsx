@@ -25,7 +25,7 @@ export const getStaticProps: GetStaticProps = async ({ params }) => {
   });
   const team = await res.json();
 
-  return { props: { team }, revalidate: 86400 };
+  return { props: { team }, revalidate: 60 };
 };
 
 type Props = {
